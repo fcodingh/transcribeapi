@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//this is a new section to test the authentication and authorization features
+Route::middleware('auth:sanctum')->get('/transcribe', function (Request $request) {
+    return $request->user();
+});
