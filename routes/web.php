@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{mtt}', function () {
+Route::get('/', function () {
     return view('welcome');
 });
+
