@@ -1,10 +1,11 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 //added by Dev Team
 use App\Http\Controllers\api\v1\TranscribeController;
-
+use App\Http\Controllers\api\v1\TestingToolPostController;  //Pending:  testing only
 
 /*
 |--------------------------------------------------------------------------
@@ -31,16 +32,9 @@ Route::middleware(['auth:sanctum'])->group(function() {
 //************Pending -->>> Move the solution to authentication
 Route::prefix('v1')->group(function () { 
     Route::controller(TranscribeController::class)->group(function () {
-        //Route::post('/mtt/{filename}', 'transcribe');  //mtt api call + transbribe the method
-        Route::get('/mtt/', function(){
-            //dd('Route --> transcriber');
-        });
-        Route::get('/mtt/{filename}', [TranscribeController::class, 'transcribe']);
-
-
-        
-    
+       Route::get('/mtt/{filename}/{disk}', [TranscribeController::class, 'mttext'] );
     });//end of the transcribe controller route 
+    Route::post('mttTest', [TestingToolPostController::class,'readPost']);
 });//end of the prefix for v1
 
 
