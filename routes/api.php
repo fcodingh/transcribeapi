@@ -32,9 +32,9 @@ Route::middleware(['auth:sanctum'])->group(function() {
 //************Pending -->>> Move the solution to authentication
 Route::prefix('v1')->group(function () { 
     Route::controller(TranscribeController::class)->group(function () {
-       Route::get('/mtt/{filename}/{disk}', [TranscribeController::class, 'mttext'] );
+       Route::post('/mttext', [TranscribeController::class, 'mttext'] );
     });//end of the transcribe controller route 
-    Route::post('mttTest', [TestingToolPostController::class,'readPost']);
+    //Route::post('mttTest', [TestingToolPostController::class,'readPost']);  //Pending Testing Only. 
 });//end of the prefix for v1
 
 

@@ -1,5 +1,5 @@
 <?php
-//Objective: Constructs a receiving end of post messages for testing 
+//Objective: Constructs a receiving end of post messages/files for testing uploads of files
 
 namespace App\Http\Controllers\api\v1;
 
@@ -28,9 +28,8 @@ class TestingToolPostController extends Controller
             // Process the file upload
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
-                $writeTo= Storage::disk('local')->put($file->getClientOriginalName(),$file->get()); // Move the uploaded file to a directory
-                $path = config('filesystems.disks.local.root');
-
+                $writtenToPath= $file->storeAs($file->hashName(),$file->getClientOriginalName()); //('local',$file->getClientOriginalName())- another option is to speficy the folder in the path as primary parameter in addtiona to the name 
+                //workingFine $writeTo= Storage::disk('local')->put($file->getClientOriginalName(),$file->get()); // Move the uploaded file to a directory
                 //$filePath = $file->store($path); // Adjust the path as needed
                 // You can also get more information about the file like size, extension, etc.
                 $fileSize = $file->getSize();
@@ -42,7 +41,7 @@ class TestingToolPostController extends Controller
             // Perform actions based on the received data
             
             // Return a response
-            return response()->json(['message' => 'Request processed successfully', 'data' => $validatedData], 200);
+            return response()->json(['message' => 'Request processed successfully', 'data' => $validatedData,$writtenToPath], 200);
         }
         catch(\Exception $e){
             return response()->json(["error"=> $e->getMessage()],400);
